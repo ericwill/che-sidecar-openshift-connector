@@ -15,7 +15,7 @@ ENV ODO_VERSION=v1.2.1 \
     OC_VERSION=4.3.3
 
 # plugin executes the commands relying on Bash
-RUN dnf install -y bash && \
+RUN dnf install -y wget bash && \
     # install oc
     wget -O- https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.3.3/openshift-client-linux-${OC_VERSION}.tar.gz | tar xvz oc -C /usr/local/bin && \
     #Set the arch

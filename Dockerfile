@@ -8,14 +8,14 @@
 # Contributors:
 #   Red Hat, Inc. - initial API and implementation
 
-FROM quay.io/eclipse/che-container-tools:1.0.0-36dcd2a
+FROM quay.io/eclipse/che-container-tools:1.0.0-8caea0f
 
 # odo and oc versions have to match the ones defined in https://github.com/redhat-developer/vscode-openshift-tools/blob/master/src/tools.json
 ENV ODO_VERSION=v1.2.1 \
     OC_VERSION=4.3.3
 
 # plugin executes the commands relying on Bash
-RUN dnf install -y wget bash && \
+RUN dnf install -y wget && \
     # install oc
     wget -O- https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.3.3/openshift-client-linux-${OC_VERSION}.tar.gz | tar xvz oc -C /usr/local/bin && \
     #Set the arch

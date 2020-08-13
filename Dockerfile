@@ -14,12 +14,10 @@ FROM quay.io/eclipse/che-container-tools:1.0.0-8caea0f
 ENV ODO_VERSION=v1.2.1 \
     OC_VERSION=4.3.3
 
-# plugin executes the commands relying on Bash
-RUN dnf install -y wget && \
-    # install oc
-    wget -O- https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.3.3/openshift-client-linux-${OC_VERSION}.tar.gz | tar xvz oc -C /usr/local/bin && \
+RUN curl -o- -L https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${OC_VERSION}/openshift-client-linux-${OC_VERSION}.tar.gz | tar xvz -C /usr/local/bin oc && \
+    chmod +x /usr/local/bin/oc && \
     #Set the arch
     export ARCH="$(uname -m)" && if [[ ${ARCH} == "x86_64" ]]; then export ARCH="amd64"; fi && \
     # install odo
-    wget -O /usr/local/bin/odo https://mirror.openshift.com/pub/openshift-v4/clients/odo/${ODO_VERSION}/odo-linux-${ARCH} && \
+    curl -o /usr/local/bin/odo https://mirror.openshift.com/pub/openshift-v4/clients/odo/${ODO_VERSION}/odo-linux-${ARCH} && \
     chmod +x /usr/local/bin/odo
